@@ -5,7 +5,7 @@ services:
 before_install:
     - docker build -t inc-abhijeet/docker-startup -f Dockerfile.dev .
 script:
-    - docker run -e CI=true inc-abhijeet/docker-startup npm run test -- --coverage
+    - docker run -e CI=true inc-abhijeet/docker-startup npm run test -- --coverage --watchAll=false
 
 deploy:
     provider: elasticbeanstalk
