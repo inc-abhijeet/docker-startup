@@ -5,11 +5,9 @@ services:
 before_install:
     - docker build -t inc-abhijeet/docker-startup -f Dockerfile.dev .
 script:
-    - docker run inc-abhijeet/docker-startup npm run test:mwl:publish:always;
-
-after_script:
-    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
- deploy:
+    - docker run -e CI=true inc-abhijeet/docker-startup npm run test:mwl:publish:always;
+T
+deploy:
     provider: elasticbeanstalk
     region: "ap-south-1"
     app: "docker_startup"
