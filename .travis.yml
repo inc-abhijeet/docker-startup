@@ -5,8 +5,8 @@ services:
 before_install:
     - docker build -t inc-abhijeet/docker-startup -f Dockerfile.dev .
 script:
-    - docker run -e CI=true inc-abhijeet/docker-startup npm run test:mwl:publish:always;
-T
+    - docker run -e CI=true inc-abhijeet/docker-startup npm run test -- --coverage
+
 deploy:
     provider: elasticbeanstalk
     region: "ap-south-1"
