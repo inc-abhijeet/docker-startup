@@ -5,5 +5,29 @@ services:
 before_install:
     - docker build -t inc-abhijeet/docker-startup -f Dockerfile.dev .
 script:
-    - docker run inc-abhijeet/docker-startup npm run test -- --coverage
+    - docker run inc-abhijeet/docker-startup npm run test:mwl:publish:always;
+
+after_script:
+    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+ deploy:
+    provider: elasticbeanstalk
+    region: "ap-south-1"
+    app: "docker_startup"
+    env: "DockerStartup-env"
+    bucket_name: "elasticbeanstalk-ap-south-1-517453957340"
+    bucket_path: "docker_startup"
+    on:
+        branch: master
+    access_key_id: $AWS_access_key
+    secret_access_key:
+        secure: "$AWS_secrate_value"
+            
     
+
+
+
+
+
+
+
+
